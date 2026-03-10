@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.app {
+  max-width: 100%;
+  margin: auto;
+  padding: 0 10px;
+}
+
+.leaderboard {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.row.active {
+  background: #f2ecff;
+}
+
+.rank-avatar {
+  display: flex;
+  align-items: center;
+}
+
+.rank {
+  font-weight: 800;
+  text-align: right;
+  margin-right: 10px;
+  transition: width 0.3s ease;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #ddd;
+  border-radius: 50%;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
+}
+
+.info {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:is(.time, .speed) {
+  font-size: 15px;
+}
+
+.time {
+  color: #7866b1;
+}
+
+.speed {
+  color: #939393;
+}
+
+.loader {
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 480px) {
+  .row {
+    padding: 8px;
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+  .stats {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app {
+    max-width: 800px;
+    padding: 0 20px;
+  }
+}
