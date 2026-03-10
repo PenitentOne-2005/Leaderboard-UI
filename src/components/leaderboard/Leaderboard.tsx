@@ -13,6 +13,16 @@ const Leaderboard = () => {
   // Сигнал для загрузки
   const [shouldLoadMore, setShouldLoadMore] = useState(false);
 
+  // Адаптивная высота списка
+  const [listHeight, setListHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => setListHeight(window.innerHeight);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Отдельный эффект для загрузки пользователей
   useEffect(() => {
     const fetch = async () => {
@@ -47,7 +57,7 @@ const Leaderboard = () => {
   return (
     <div className="leaderboard">
       <List
-        height={window.innerHeight}
+        height={listHeight}
         itemCount={users.length}
         itemSize={72}
         width="100%"
