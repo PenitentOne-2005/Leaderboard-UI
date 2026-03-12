@@ -10,9 +10,6 @@ const Leaderboard = () => {
 
   const rankWidth = `${String(users.length).length * 12 + 10}px`;
 
-  // Сигнал для загрузки
-  const [shouldLoadMore, setShouldLoadMore] = useState(false);
-
   // Адаптивная высота списка
   const [listHeight, setListHeight] = useState(window.innerHeight);
 
@@ -22,17 +19,6 @@ const Leaderboard = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // Отдельный эффект для загрузки пользователей
-  useEffect(() => {
-    const fetch = async () => {
-      if (shouldLoadMore && !loading) {
-        await loadMore();
-        setShouldLoadMore(false);
-      }
-    };
-    fetch();
-  }, [shouldLoadMore, loading, loadMore]);
 
   const Row = useCallback(
     ({ index, style }: ListChildComponentProps) => {
