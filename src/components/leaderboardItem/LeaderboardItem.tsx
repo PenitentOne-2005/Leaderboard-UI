@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { formatTime } from "@/utils";
 import type { Props } from "./interface";
 
@@ -26,4 +27,4 @@ const LeaderboardItem = ({
   );
 };
 
-export default LeaderboardItem;
+export default memo(LeaderboardItem);

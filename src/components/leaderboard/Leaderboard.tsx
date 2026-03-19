@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import type { ListChildComponentProps } from "react-window";
 import { FixedSizeList as List } from "react-window";
 import useUsers from "@/hooks";
@@ -8,7 +8,10 @@ const Leaderboard = () => {
   const { users, loadMore, loading } = useUsers();
   const [selected, setSelected] = useState<number | null>(null);
 
-  const rankWidth = `${String(users.length).length * 12 + 10}px`;
+  const rankWidth = useMemo(
+    () => String(users.length).length * 12 + 10,
+    [users.length],
+  );
 
   // Адаптивная высота списка
   const [listHeight, setListHeight] = useState(window.innerHeight);
@@ -19,6 +22,8 @@ const Leaderboard = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleSelect = useCallback((i: number) => () => setSelected(i), []);
 
   const Row = useCallback(
     ({ index, style }: ListChildComponentProps) => {
@@ -31,13 +36,13 @@ const Leaderboard = () => {
             user={user}
             index={index}
             selected={selected === index}
-            rankWidth={parseInt(rankWidth)}
-            onClick={() => setSelected(index)}
+            rankWidth={rankWidth}
+            onClick={handleSelect(index)}
           />
         </div>
       );
     },
-    [users, selected, rankWidth],
+    [users, selected, rankWidth, handleSelect],
   );
 
   return (
